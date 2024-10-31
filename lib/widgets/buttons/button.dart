@@ -6,6 +6,7 @@ enum AppButtonType{
 enum AppButtonSize{
   small,
   normal,
+  medium,
   large;
 }
 
@@ -82,6 +83,7 @@ class AppButton extends StatelessWidget{
     switch(size){
       case AppButtonSize.small: dimension = 30 ; break;
       case AppButtonSize.normal: dimension = 40 ; break;
+      case AppButtonSize.medium: dimension = 45 ; break;
       case AppButtonSize.large: dimension = 55 ;break;
       default: break;
     }

@@ -1,5 +1,4 @@
 import 'package:events_emitter/events_emitter.dart';
-import 'package:fintracker/bloc/cubit/app_cubit.dart';
 import 'package:fintracker/dao/account_dao.dart';
 import 'package:fintracker/dao/payment_dao.dart';
 import 'package:fintracker/events.dart';
@@ -12,7 +11,6 @@ import 'package:fintracker/screens/payment_form.screen.dart';
 import 'package:fintracker/theme/colors.dart';
 import 'package:fintracker/widgets/currency.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 
@@ -143,12 +141,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Hi! Good ${greeting()}"),
-                    BlocConsumer<AppCubit, AppState>(
-                        listener: (context, state){
-
-                        },
-                        builder: (context, state)=>Text(state.username ?? "Guest", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),)
-                    )
                   ],
                 ),
               ),

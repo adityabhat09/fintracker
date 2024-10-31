@@ -27,7 +27,7 @@ class _MainScreenState extends State<MainScreen>{
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state){
         AppCubit cubit = context.read<AppCubit>();
-        if(cubit.state.currency == null || cubit.state.username == null){
+        if(cubit.state.currency == null){
           return OnboardScreen();
         }
         return  Scaffold(

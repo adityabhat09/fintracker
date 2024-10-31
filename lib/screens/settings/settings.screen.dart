@@ -33,63 +33,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ListTile(
               dense: true,
               onTap: (){
-                showDialog(context: context, builder: (context){
-                  TextEditingController controller = TextEditingController(text: context.read<AppCubit>().state.username);
-                  return AlertDialog(
-                    title: const Text("Profile", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("What should we call you?", style: theme.textTheme.bodyLarge!.apply(color: ColorHelper.darken(theme.textTheme.bodyLarge!.color!), fontWeightDelta: 1),),
-                        const SizedBox(height: 15,),
-                        TextFormField(
-                          controller: controller,
-                          decoration: InputDecoration(
-                              label: const Text("Name"),
-                              hintText: "Enter your name",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15)
-                          ),
-                        )
-                      ],
-                    ),
-                    actions: [
-                      Row(
-                        children: [
-                          Expanded(
-                              child: AppButton(
-                                onPressed: (){
-                                  if(controller.text.isEmpty){
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please enter name")));
-                                  } else {
-                                    context.read<AppCubit>().updateUsername(controller.text);
-                                    Navigator.of(context).pop();
-                                  }
-                                },
-                                height: 45,
-                                label: "Save",
-                              )
-                          )
-                        ],
-                      )
-                    ],
-                  );
-                });
-              },
-              leading: const CircleAvatar(
-                  child: Icon(Symbols.person)
-              ),
-              title:  Text('Name', style: Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(fontWeight: FontWeight.w500, fontSize: 15))),
-              subtitle: BlocBuilder<AppCubit, AppState>(builder: (context, state) {
-                return Text(state.username!,style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.grey, overflow: TextOverflow.ellipsis));
-              }),
-            ),
-            ListTile(
-              dense: true,
-              onTap: (){
                 showCurrencyPicker(context: context, onSelect: (Currency currency){
                   context.read<AppCubit>().updateCurrency(currency.code);
                 });
@@ -194,12 +137,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             //     );
             //   },
             //   leading: CircleAvatar(
-            //       backgroundColor: ThemeColors.error.withAlpha(90),
+            //
             //       child: const Icon(Symbols.device_reset,)
             //   ),
             //   title:  Text('Reset', style: Theme.of(context).textTheme.bodyMedium?.merge(const TextStyle(fontWeight: FontWeight.w500, fontSize: 15))),
             //   subtitle:  Text("Delete all the data",style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.grey, overflow: TextOverflow.ellipsis)),
             // ),
+            //
           ],
         )
     );
