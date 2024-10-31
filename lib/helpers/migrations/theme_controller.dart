@@ -47,21 +47,21 @@ class ThemeController {
       colorSchemeSeed: Colors.green,
       navigationBarTheme: nt,
     );
-
-    return baseTheme.copyWith(
-      textTheme: GoogleFonts.golosTextTextTheme(
-          _buildTextTheme(
-              baseTheme.textTheme
-          )
-      ),
-    );
-    return baseTheme.copyWith(
-      textTheme: GoogleFonts.leagueSpartanTextTheme(
-          _buildTextTheme(
-              baseTheme.textTheme
-          )
-      ),
-    );
+    return baseTheme;
+    // return baseTheme.copyWith(
+    //   textTheme: GoogleFonts.golosTextTextTheme(
+    //       _buildTextTheme(
+    //           baseTheme.textTheme
+    //       )
+    //   ),
+    // );
+    // return baseTheme.copyWith(
+    //   textTheme: GoogleFonts.leagueSpartanTextTheme(
+    //       _buildTextTheme(
+    //           baseTheme.textTheme
+    //       )
+    //   ),
+    // );
   }
 
 
