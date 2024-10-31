@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ThemeController {
   static TextTheme _buildTextTheme(TextTheme baseTheme) {
@@ -47,14 +46,11 @@ class ThemeController {
       colorSchemeSeed: Colors.green,
       navigationBarTheme: nt,
     );
-    return baseTheme;
-    // return baseTheme.copyWith(
-    //   textTheme: GoogleFonts.golosTextTextTheme(
-    //       _buildTextTheme(
-    //           baseTheme.textTheme
-    //       )
-    //   ),
-    // );
+    return baseTheme.copyWith(
+        textTheme: _buildTextTheme(
+            baseTheme.textTheme
+        )
+    );
     // return baseTheme.copyWith(
     //   textTheme: GoogleFonts.leagueSpartanTextTheme(
     //       _buildTextTheme(

@@ -1,9 +1,7 @@
 import 'package:currency_picker/currency_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fintracker/bloc/cubit/app_cubit.dart';
-import 'package:fintracker/helpers/color.helper.dart';
 import 'package:fintracker/helpers/db.helper.dart';
-import 'package:fintracker/widgets/buttons/button.dart';
 import 'package:fintracker/widgets/dialog/confirm.modal.dart';
 import 'package:fintracker/widgets/dialog/loading_dialog.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +21,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Settings", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),),
@@ -59,11 +56,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       Navigator.of(context).pop();
                       LoadingModal.showLoadingDialog(context, content: const Text("Exporting data please wait"));
                       await export().then((value){
-                        ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text("File has been saved in $value")));
+                        if(context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("File has been saved in $value")));
+                        }
                       }).catchError((err){
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Something went wrong while exporting data")));
+                        if(context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Something went wrong while exporting data")));
+                        }
                       }).whenComplete((){
-                        Navigator.of(context).pop();
+                        if(context.mounted) {
+                          Navigator.of(context).pop();
+                        }
                       });
                     },
                     onCancel: (){
@@ -88,28 +91,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     allowedExtensions: ["json"]
                 ).then((pick){
                   if(pick == null || pick.files.isEmpty) {
-                    return  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please select file")));
+                    if(context.mounted) {
+                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please select file")));
+                    }
+                    return null;
                   }
                   PlatformFile file = pick.files.first;
-                  ConfirmModal.showConfirmDialog(
-                      context, title: "Are you sure?",
-                      content: const Text("All payment data, categories, and accounts will be erased and replaced with the information imported from the backup."),
-                      onConfirm: ()async{
-                        Navigator.of(context).pop();
-                        LoadingModal.showLoadingDialog(context, content: const Text("Exporting data please wait"));
-                        await import(file.path!).then((value){
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Successfully imported.")));
+                  if(context.mounted) {
+                    ConfirmModal.showConfirmDialog(
+                        context, title: "Are you sure?",
+                        content: const Text(
+                            "All payment data, categories, and accounts will be erased and replaced with the information imported from the backup."),
+                        onConfirm: () async {
                           Navigator.of(context).pop();
-                        }).catchError((err){
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Something went wrong while importing data")));
-                        });
-                      },
-                      onCancel: (){
-                        Navigator.of(context).pop();
-                      }
-                  );
+                          LoadingModal.showLoadingDialog(
+                              context, content: const Text(
+                              "Exporting data please wait"));
+                          await import(file.path!).then((value) {
+                            if(context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text("Successfully imported.")));
+                              Navigator.of(context).pop();
+                            }
+                          }).catchError((err) {
+                            if(context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text(
+                                      "Something went wrong while importing data")));
+                            }
+                          });
+
+                        },
+                        onCancel: () {
+                          Navigator.of(context).pop();
+                        }
+                    );
+                  }
                 }).catchError((err){
-                  return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Something went wrong while importing data")));
+                  if(context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Something went wrong while importing data")));
+                  }
                 });
               },
               leading: const CircleAvatar(

@@ -193,8 +193,10 @@ class _PaymentForm extends State<PaymentForm>{
                         onConfirm: (){
                           _paymentDao.deleteTransaction(_id!).then((value) {
                             globalEvent.emit("payment_update");
-                            Navigator.pop(context);
-                            Navigator.pop(context);
+                            if(context.mounted) {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            }
                           });
                         },
                         onCancel: (){
