@@ -1,0 +1,1 @@
+/home/ahmed/AndroidStudioProjects/fintracker/build/app/intermediates/cxx/Debug/5j406x6l/obj/armeabi-v7a

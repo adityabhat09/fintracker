@@ -1,0 +1,2 @@
+/home/ahmed/AndroidStudioProjects/fintracker/android/app/.cxx/Debug/5j406x6l/x86_64/CMakeFiles/edit_cache.dir
+/home/ahmed/AndroidStudioProjects/fintracker/android/app/.cxx/Debug/5j406x6l/x86_64/CMakeFiles/rebuild_cache.dir
