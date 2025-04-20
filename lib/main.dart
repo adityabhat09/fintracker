@@ -1,3 +1,5 @@
+// flutter mprr
+
 import 'package:fintracker/app.dart';
 import 'package:fintracker/bloc/cubit/app_cubit.dart';
 import 'package:fintracker/helpers/db.helper.dart';
